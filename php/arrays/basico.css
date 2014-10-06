@@ -1,0 +1,172 @@
+.container{width: 100%}
+.speaker-item.span6 {
+	max-width: 450px;
+	min-height: 80px;
+	margin-bottom: 20px;
+	max-height: 112px;
+	float: left;
+	width: 554px;
+}
+img {
+width: auto\9;
+height: auto;
+max-width: 100%;
+vertical-align: middle;
+border: 0;
+-ms-interpolation-mode: bicubic;
+}
+/*.speaker-item.span6:nth-child(even) {margin-right: 20px}*/
+
+/* Hide Speaker attribs (Highlighted, Keynote) used to apply the jQuery filters */
+.speaker-item .highlighted,
+.speaker-item .keynote {display: none}
+
+/* Top actions bar */
+.speakers-actions.span12,
+.speakers-actions .filters,
+.speakers-actions .form {margin-left: 0}
+
+.speakers-actions .filters {overflow: hidden}
+.speakers-actions .filters a,
+.speakers-actions .filters button {
+	float: left;
+	text-transform: uppercase;
+	font: normal 16px/34px 'Open Sans', sans-serif;
+	padding: 0 12px;
+	margin-right: 4px;
+	background-color: #fff;
+	color: #444;
+	border: 1px solid #eee;
+}
+.speakers-actions .filters button.active {
+	background-color: #d19e43;
+	border-color: #d19e43;
+	color: #fff;
+}
+.speakers-actions .filters a:hover,
+.speakers-actions .filters button:hover,
+.speakers-actions .filters button:active {
+	outline: none;
+	border: 1px solid #d19e43;
+	text-decoration: none
+}
+.speakers-actions .form input {
+	background: url('/wp-content/uploads/2014/09/search-icon1.png') no-repeat right center;
+	width: 100%;
+	-webkit-box-sizing : border-box;‌​
+    -moz-box-sizing : border-box;
+    box-sizing : border-box;
+    height: 30px;
+    line-height: 30px;
+    border-color: #eee;
+}
+
+/* Bootsrap was altered on tmf-responsive.css so I need to add max-width to solve this */
+@media screen and (max-width: 500px) {
+	.speakers-actions .filters button {
+		padding: 0 8px;
+		font-size: 14px
+	}
+}
+@media screen and (max-width: 768px) {
+	.speaker-item.span6 {max-width: 100%}
+	.speakers-actions .filters {margin-bottom: 10px}
+}
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+	.speakers-actions .filters {margin-left: 20px}
+	.speakers-actions {margin-bottom: 20px}
+}
+@media screen and (min-width: 1200px) {
+	.search-speaker .find-speaker .span6,
+	.speaker-item.span6 {max-width: 540px}
+	.speakers-actions {
+		max-width: 1100px;
+		margin-bottom: 20px;
+	}
+	.speakers-actions.span12 {margin-left: 10px}
+	.speakers-actions .form {margin-left: 2px}
+	.speaker-item.span6 {margin: 0 7px 20px}
+}
+
+.speaker-item a {
+	min-height: 80px;
+	display: block;
+	color: #444;
+	border: 1px solid #eee;
+	padding: 15px;
+}
+.speaker-item a:hover {
+	color: #444;
+	text-decoration: none;
+	background-color: #f4f4f4;
+}
+.speaker-item .speaker-info {display: block}
+.speaker-item .speaker-info strong,
+.speaker-item .speaker-info span {
+	display: block;
+}
+.speaker-item .speaker-info .thumb {
+	float: left;
+	margin-right: 10px;
+	height: 80px;
+	width: 80px;
+	overflow: hidden;
+}
+
+.speaker-item .speaker-info .name {
+	color: #d19e43;
+	font-size: 20px;
+	line-height: 22px;
+	margin-bottom: 3px
+}
+.speaker-item .speaker-info .role {
+	font-style: italic;
+	font-size: 14px;
+	line-height: 18px;
+	margin-left: 90px;
+	max-height: 36px;
+}
+.speaker-item .speaker-info .company {
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+	color: #000;
+	margin-top: 2px;
+}
+
+/* Speaker Profile page */
+
+.speaker-profile .speaker-info .thumb {
+	margin-right: 20px;
+	margin-bottom: 20px;
+	width: 150px;
+	float: left;
+}
+.speaker-profile .speaker-info li {
+	list-style: disc;
+	color: #444;
+	font-size: 14px;
+	line-height: 20px;
+}
+.speaker-profile .speaker-info .title {
+	font-size: 18px;
+	line-height: 30px;
+	font-weight: 500;
+	color: black;
+	vertical-align: top;
+}
+.speaker-profile .speaker-info .name { border-bottom: 1px solid #cacaca; font-weight: bold; }
+.speaker-profile h3 {
+	font-size: 18px;
+	font-weight: normal;
+	margin: 2em 0 1.2em 0;
+	background-color: #D19E43;
+	color: #fff;
+	padding: 5px 10px;
+}
+.article-body-wrap .body-text div.timeTrack, .speaker-profile p.time{ padding: 10px; line-height: 100%; background: #f3f3f3; font-size: 16px; color: #434343; }
+.speaking-schedule{ margin-bottom: 50px;}
+.speakerTrack a img, .textTrack a img { border-radius: 50%; width: 70px; height: 70px; float: left; margin-right: 20px; display: block;}
+.speakerTrack .speakerSidebar, .textTrack .speakerSidebar { display: table-cell; vertical-align: middle; }
+.agenda_tracks .page-content .article-body-wrap .speakerTrack {display: none;}
+.ui-tabs-panel .textTrack p {padding: 0px;}

@@ -1,0 +1,29 @@
+1 Preparar el entorno
+
+Crear un vhost para una carpeta llamada "sandbox" donde vamos a ir poniedo todo lo relacionado a los cursos
+Se tendra que modificar vhost+hosts(win) 
+
+servidor: local.sandbox.com
+carpeta: httdocs/sandobox
+
+2 Crear dentro de sandbox una carpeta para el curso de php y extraer ahi el .rar de manera que index.html quede accessible local.sandbox.com/php/arrays/index.html
+
+3 Hacer exactamente el mismo output que en index.html pero trabajando con un array de datos por cada usuario.
+
+Cada array de usuario va a estar contenido en un array más grande
+
+$usuarios = [$amitra, $areho, $akahlow, $acanessa, $akohli]
+
+Cada uno de los elementos del array $usuarios va a ser un array en si mismo
+
+
+Por ejemplo: 
+
+$amitra = [
+	[user_id] => '88'
+        [user_role] => 'Managing Consultant, Communication and Media'
+        [user_company] => 'Wipro Technologies'
+        [user_name] => 'Mitra'  
+        [user_last_name] => 'Abhijeet'
+	[user_img] => 'default_speaker.png'
+]

@@ -16,7 +16,7 @@
 	<?php 
 
 	// declaro variables;
-	$mensajes = ['Por favor, dame algo para hacer', 'Voy a ', 'Resultado: ', 'Gracias'];
+	$mensajes = ['Por favor, dame algo para hacer', 'Voy a ', 'Resultado: ', '<a href="index2.php">ver versión mejorada</a>'];
 	$operadores =array('sumar'=>'+','multiplicar'=>'*','restar'=>'-');
 	$queDecir = 0;
 	$operacionGuardada = 'Operación no válida...';

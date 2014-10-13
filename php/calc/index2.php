@@ -1,3 +1,5 @@
+<? if(isset($_POST['que']) && $_POST['que']!==''){$que = $_POST['que'];}else {$que='';} ?>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,8 +10,8 @@
 	<body>
 
 	<h1></h1>
-		<form action="?calculalo" method="get">
-		<input type="text" value="" name="que" placeholder="5*20">
+		<form action="?calculalo" method="post">
+		<input type="text" value="<?= $que ?>" name="que" placeholder="">
 		<input type="submit">
 		</form>
 
@@ -22,10 +24,10 @@
 	$operacionGuardada[] = 'Operación no válida...';
 
 	// verifico que se haya enviado algo por el formulario y que sea differente de vacio
-	if(isset($_GET['que']) && $_GET['que']!==''){
+	if(isset($_POST['que']) && $_POST['que']!==''){
 
 		// tomo la variable que me pasa por GET
-		$que = $_GET['que'];
+		$que = $_POST['que'];
 		$queDecir ++;
 		$charTolook=1;
 		$poss=0;
@@ -49,9 +51,9 @@
 				// con (integer) al principio me aseguro de convertirlos a numeros matematicamente hablando.
 				$poss++;
 				$charTolook=0;
-			}
 
 			}
+		}
 
 			
 		}
@@ -71,30 +73,31 @@
 		$indiceOperaciones=0;
 
 		foreach ($operacionGuardada as $opera){
+			if(count($numeros)>1){
+				echo $opera.': '.$numeros[0].' con '.$numeros[1].'</br>';
 
-			echo $opera.': '.$numeros[0].' con '.$numeros[1].'</br>';
-
-			switch ($opera) {
-				case 'sumar':
-					$numeros[0] = $numeros[0]+$numeros[1];
-					break;
-				case 'multiplicar':
-					$numeros[0] = $numeros[0]*$numeros[1];
-					break;
-				case 'restar':
-					$numeros[0] = $numeros[0]-$numeros[1];
-					break;
-				case 'dividir':
-					if($numeros[1]==0){$numeros[0]='Bananas';}
-					else{$numeros[0] = $numeros[0]/$numeros[1];}
-					break;
-				
-				default:
-					$numeros[0] = 'Operación no válida...';
-					break;
-			}
-			$numeros[1] = array_pop($numeros);
-			$indiceOperaciones++;
+				switch ($opera) {
+					case 'sumar':
+						$numeros[0] = $numeros[0]+$numeros[1];
+						break;
+					case 'multiplicar':
+						$numeros[0] = $numeros[0]*$numeros[1];
+						break;
+					case 'restar':
+						$numeros[0] = $numeros[0]-$numeros[1];
+						break;
+					case 'dividir':
+						if($numeros[1]==0){$numeros[0]='Bananas';}
+						else{$numeros[0] = $numeros[0]/$numeros[1];}
+						break;
+					
+					default:
+						$numeros[0] = 'Operación no válida...';
+						break;
+				}
+				$numeros[1] = array_pop($numeros);
+				$indiceOperaciones++;
+			}else{ $numeros[0] = $que.' porque no usaste ningún operador.';}
 			
 		}
 

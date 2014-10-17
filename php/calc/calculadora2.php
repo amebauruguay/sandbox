@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,3 +53,5 @@ if(isset($_GET['campo1']) && $_GET['campo1']!==''){
 
 </body>
 </html>
+=======
+>>>>>>> origin/master

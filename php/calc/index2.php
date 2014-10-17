@@ -56,23 +56,30 @@
 		$poss=0;
 
 		//recorro el string que pasaron desde la posicion 1 en adelante: +5/-3+4
-		// Igonoro el caracter en la poscion 0 porque aunque sea un operador no voy a operar con él, por eso definí $charToLool = 1
+		// Igonoro el caracter en la poscion 0 porque aunque sea un operador no voy a operar con él, por eso definí $charToLook = 1
 		for ($charTolook=1; $charTolook < strlen($que); $charTolook++) {
 
 			// comparo cada caracter con un operador (+,*,-,/).
 			foreach ($operadores as $operacion => $operador){
 
 				// si el caracter es un operador
+			
 				if($que[$charTolook]==$operador) {   // : 5 == + no, 5==* no, 5 == - no, 5==/ no, / == + no, /==* no, / == - no, /==/ SI
 					
-					// lo guardo en $operacionGuardada en posición determinada
-					$operacionGuardada[$poss] = $operacion; // $operacionGuardada[0] = 'dividir'
 
 					//Guardo el número que esta antes del operador en un array
 					
 					// Convierto a número (integer) lo que encuentre en $que desde la posicion 0 hasta la posicion del operador encontrado
 					// y lo guardo en la posición determinada dentro del array de números 
-					$numeros[$poss] = (integer)substr($que,0,$charTolook);  //  $numeros[0] = +5
+					
+
+					if(strlen(substr($que,0,$charTolook))){
+
+					$numeros[] = (integer)substr($que,0,$charTolook);  //  $numeros[0] = +5
+					// lo guardo en $operacionGuardada en posición determinada
+					$operacionGuardada[] = $operacion; // $operacionGuardada[0] = 'dividir'
+					
+					}
 					
 					// re-defino $que para buscar el siguiente operador
 					$que = substr($que,$charTolook+1);  // ahora $que = -3+4 
@@ -80,6 +87,7 @@
 					$charTolook=0; // como re-definí la variable $que y le saque la pimera parte lo vuelvo a recorrer desde el principio 
 
 				} // termina el if
+		
 			} // termina el foreach
 		} // termina el for 
 
@@ -87,7 +95,7 @@
 		$numeros[$poss] = (integer)$que;
 
 		//descomentar para ver el array de operaciones
-		//pp($operacionGuardada, 'Operaciones: ');
+		pp($operacionGuardada, 'Operaciones: ');
 
 		// Ahora que tenemos un array con números y un array con operaciones, vamos a hacer las cuentas
 		// Esta versión de calculin no respeta la propiedad asociativa. 
@@ -100,7 +108,7 @@
 		foreach ($operacionGuardada as $opera){
 
 			// descomentar para ver como va quedan el array de números
-			//pp($numeros, 'Números vez '.$indiceOperaciones.': ');
+			pp($numeros, 'Números vez '.$indiceOperaciones.': ');
 
 			// si tengo más de un número
 			if(count($numeros)>1){

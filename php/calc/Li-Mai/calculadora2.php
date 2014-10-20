@@ -1,9 +1,4 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Calculadora</title>
-</head>
 <body>
 
 <h1></h1>
@@ -50,7 +45,4 @@ if(isset($_GET['campo1']) && $_GET['campo1']!==''){
 	};
 };
 ?>
-
 </body>
-</html>
-

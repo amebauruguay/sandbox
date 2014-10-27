@@ -64,6 +64,11 @@ $descuento = filtrando ('descuento', $todo);*/
 if(isset($_GET['busqueda'])){
 			$busqueda=$_GET['busqueda'];	
 		}
+
+//isset es la forma de preguntar si la variable esta definida, si existe
+//$_GET es un array serializado
+
+
 /*function filtrando($info, $busca){
 	$encuentra = array();
 

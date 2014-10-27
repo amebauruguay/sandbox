@@ -5,19 +5,27 @@
 </head>
 <body>
 
-<?php 
+<?php
 
-$companias = array(
-	array('nombre' => 'lemon','rubro'=>'ropa', 'descuento'=>'20%', 'descuentoActivo' => 1 ),
-	array('nombre' => 'sisi','rubro'=>'ropa interior', 'descuento'=>'25%', 'descuentoActivo' => 1 ),
-	array('nombre' => 'stadium','rubro'=>'zapatos', 'descuento'=>'15%', 'descuentoActivo' => 1 ),
-	array('nombre' => 'tata','rubro'=>'supermercado', 'descuento'=>'0%', 'descuentoActivo' => 0 ),
-	array('nombre' => 'Daniel Casin','rubro'=>'ropa', 'descuento'=>'0%', 'descuentoActivo' => 0 ),
-	);
+class empresa{
+	public $nombre;
+	public $rubro;
+	public $descuento;
 
-// echo '<pre>';
-// print_r($companias);
-// echo '</pre>';
+	public function __construct($n, $r, $d){
+		$this->nombre = $n;
+		$this->rubro = $r;
+		$this->descuento = $d;
+	}
+}
+
+$tata = new empresa('Tata','supermercado','15%');
+$lemon = new empresa('Lemon','ropa','25%');
+$stadium = new empresa('Stadium','zapatos','20%');
+$daniel = new empresa('Daniel Casin','ropa',0);
+$sisi = new empresa('Sisi','ropa interior',0);
+
+$companias = array(	$tata,$lemon,$stadium,$daniel,$sisi);
 
 $companiasMostrar = $companias;
 
@@ -25,7 +33,7 @@ $companiasMostrar = $companias;
 
 ///////////////////////////
 
-if(isset($_GET['filtrar'])){
+if(isset($_GET['filtrar'])){ // isset es la forma de preguntar si la variable esta definida
 
 	$companiasMostrar=array();
 
@@ -33,10 +41,12 @@ if(isset($_GET['filtrar'])){
 
 	foreach ($companias as $compania) {
 
-		extract($compania);
+
+		//extract($compania); ahora es un obj
+
 
 		if($filtrar=='porDesc'){
-			if(!$descuentoActivo){
+			if($compania->descuento){
 				$companiasMostrar[]=$compania;
 			}
 		}
@@ -78,12 +88,12 @@ if(isset($_GET['filtrar'])){
 	function descuento($itemDeComp, $arr) {
 		$ret = array();
 		foreach ($arr as $cadaCompania) {
-			$ret[] = $cadaCompania[$itemDeComp];
+			$ret[] = $cadaCompania->$itemDeComp;
 		}
 		return $ret;
 	};
 
-	$itemDescuento = descuento('descuentoActivo', $companias);
+	$itemDescuento = descuento('descuento', $companias);
 	print_r($itemDescuento);
 
 	if ($itemDescuento == 0) {

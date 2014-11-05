@@ -10,3 +10,11 @@ include 'global_includes/functions.php';
 	<title>loged</title>
 </head>
 <body>
+
+
+<div>
+	<ul>
+		<li><a href="index.php">inicio</a></li>
+		<li><a href="login.php?chau">log out</a></li>
+	</ul>
+</div>

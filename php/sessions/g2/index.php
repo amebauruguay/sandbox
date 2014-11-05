@@ -1,0 +1,1 @@
+esta pagina solo se debe ver si estás logueado

@@ -1,1 +1,1 @@
-funciones generales
+<?php function validate($nombre, $pass='no definido'){return (NOMBRE === $nombre && $pass === PASS);} ?>

@@ -1,5 +1,6 @@
-definición de usuarios, más adelante, conexion a la base
+<?php 
 
-usuarios: luma, lima
-pass: 123, 321
+define('NOMBRE','mvallve');
+define('PASS','mki');
 
+ ?>

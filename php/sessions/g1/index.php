@@ -1,5 +1,5 @@
 <?php 
-
+//si es el nombre usuarion no existe que te mande al login
 session_start(); 
 if ( !isset($_SESSION['username']) ) {
 	header('Location: login.php');

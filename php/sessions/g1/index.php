@@ -1,1 +1,21 @@
-esta pagina solo se debe ver si estás logueado
+<?php 
+
+session_start(); 
+if ( !isset($_SESSION['username']) ) {
+	header('Location: login.php');
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>Hola <?php echo $_SESSION['username'] ?></h1>
+<p><a href="logout.php">Logout!</a></p>
+
+</body>
+</html>

@@ -9,17 +9,17 @@
     <body>
     	<div style="width:50%; float:left;">
     	<h1>Ingresa al sitio</h1>
-    	<form action="admin/check.php" method="post">
+    	<form action="" method="post">
         	<label for="usuario">Usuario</label>
         	<input name="usuario" type="text"><br>	
         	<label for="Password">Password</label>
         	<input name="password" type="password"><br>
-        	<input type="button" class="submit"	value="enviar">
+        	<input type="submit" value="enviar">
         </form>
         </div>
         <div style="width:50%; float:left;">
-        <h1>Si no tenes usuario crealo</h1>
-        <form action="admin/check.php" method="post">
+        <h1>Si no tenés usuario crealo</h1>
+        <form action="" method="post">
         	<label for="Nombre">Nombre</label>
         	<input name="nombre" type="text"><br>
         	<label for="Apellido">Apellido</label>
@@ -30,8 +30,11 @@
         	<input name="checkpass" type="password"><br>
         	<label for="mail">E-mail</label>
         	<input name="mail" type="text"><br>
-        	<input type="button" class="submit"	value="enviar">
+        	<input type="submit" value="enviar">
         </form>
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            include ("admin/check.php");
+        } ?>
         </div>
         <div style="clear:both;"></div>
     </body>

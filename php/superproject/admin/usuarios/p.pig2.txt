@@ -1,0 +1,7 @@
+array (
+  'nombre' => 'Pepa',
+  'apellido' => 'Pig',
+  'password' => '1234',
+  'checkpass' => '1234',
+  'mail' => 'p@pig.com',
+)

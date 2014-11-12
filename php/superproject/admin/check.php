@@ -60,7 +60,7 @@ if (isset($_POST ["nombre"])) {
 		$ext = ".txt";
 		//file_put_contents($ruta.$usuario.$ext, $_POST); opcion1
 		
-		$imploded = implode('\r',$_POST);
+		$imploded = implode('\n',$_POST);
 		$serialized = serialize($_POST);
 		$exported_var = var_export($_POST, true);
 

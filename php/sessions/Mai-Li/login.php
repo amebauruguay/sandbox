@@ -2,46 +2,77 @@
 
 session_start();
 
-define('USERNAME', 'Li');
-define('PASSWORD', '123123');
+//define('USERNAME', 'Li');
+//define('PASSWORD', '123123');
+
+
+
+
+//para Registrarse: chequea que se haya cliqueado el botón de sign in
+if (isset ($_POST ['signin'])) {
+
+	//Convierte los datos del array post en variables independientes y usables
+	extract($_POST);
+	//escribe los datos del post en un formato usable para convertir luego en un array
+	$datosForm = serialize($_POST);
+	//validar
+	if ($password==$password2){
+		if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
+			//toma la inicial del nombre ingresado
+			$username = strtolower(substr( $name, 0, 1). $apellido); 
+			//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
+			file_put_contents('users/'. $username .'.txt', $datosForm);
+			$statusSingIn = 'se registro correctamente';
+		}else{
+			$statusSingIn = 'mail no valido';
+		}
+	}else{ 
+		$statusSingIn = 'Contraseñas no coinciden';
+	}
+}
+
+//busca el archivo en la carpeta users con el nombre que se haya ingresado
+
+//abre el archivo y chequea si la contrasena coincide con la ingresada
 
 
 // PARA LOGEARSE: si el campo login existe. para identificar cual formulario esta mandando
 if (isset ($_POST ['login'])) {
-	//define las variables que son los input de username y password
-	$username = $_POST ['username'];
-	$password = $_POST ['password'];
-
-//si las variables coinsiden con los datos definidos en la db
-	if ($username === USERNAME && $password === PASSWORD) {
+	//buscar el archivo y lo abre
+	$archivoAbrierto = fopen('users/'.$_POST ['username'].'.txt', 'r');
+	//lee la linea de datos del archivo
+	$linea = fgets($archivoAbrierto);
+	//convierte los datos del archivo en un array
+	$arrayDatos = unserialize($linea);
+	
+	//si el password ingresado coincide con el password del archivo
+	if ($_POST ['password'] == $arrayDatos['password']) {
 		//pasarle la variable a la session y redirecciona al index.php
 		$_SESSION['username'] = $username;
 		header("Location: index.php");
 	}else{
 		//define la variable para pasar el mensaje de 'error'
-		$status = "Please Login!";
+		$status = "Datos incorrectos!!!!";
 	}
-}
 
-//para Registrarse: chequea que se haya cliqueado el botón de sign in
-if (isset ($_POST ['signin'])) {
-	//Convierte los datos del array post en variables independientes y usables
-	extract($_POST);
-	//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
-	file_put_contents('users/jcarlos.txt', $_POST)
-
-
-	//$nuevoUsuario = 'jcarlos.txt';
-	// Abre el fichero para obtener el contenido existente
-	//$actual = file_get_contents($nuevoUsuario);
-	// Escribe el contenido al fichero
-	//file_put_contents($nuevoUsuario, $actual);
+	//si las variables coinsiden con los datos definidos en la db
+	//if ($username === USERNAME && $password === PASSWORD) {
+		//pasarle la variable a la session y redirecciona al index.php
+	//	$_SESSION['username'] = $username;
+	//	header("Location: index.php");
+	//else{
+		//define la variable para pasar el mensaje de 'error'
+		//$status = "Datos incorrectos!!!!";
 	//}
+}
+	
+
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<title>Login</title>
 </head>
 <body>
@@ -79,6 +110,12 @@ if (isset ($_POST ['signin'])) {
 		<label for="password2">Repita el Password</label>
 		<input name="password2" value="" type="password"/>
 		<input type="submit" value="Registrarse" name="signin"/>
+
+	<!-- si llega al else (las contraseñas coinciden) imprime la variable statusSingIn -->
+		<?php if( isset($statusSingIn) ) : ?>
+		<p><?php echo $statusSingIn; ?></p>
+	<?php endif; ?>
+
 	</form>
 </div>
 

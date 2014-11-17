@@ -22,6 +22,8 @@ session_start();
 
 
 <?php 
+
+if (isset($_POST['nombre'])) {
 	//el array se crea automatico con el post
 	extract($_POST); // tranformamos las key en variables
 	$n=strtolower($nombre); //convertimos en minusculas los caracteres
@@ -41,10 +43,11 @@ session_start();
 		fwrite($handle, $data); // esribio el handle y la data
 		fclose($handle); // cierra el archivo
 	}*/
-	$abrir = fopen ($username.'.txt','r'); // abre el .txt
-	$obtener = fgets ($abrir); //lee todo el archivo .txt
-	$final = unserialize($obtener); // te lo convierte en un array
 	//print_r($final); 
+	//
+	//
+	}
+	
 ?>
 
 <form action="login.php" method="post">
@@ -54,28 +57,33 @@ session_start();
 	<input name="contrasena" value="" type="password"/>
 	<input type="submit" value="Submit!"/>
 
-
-
 	<?php 
+	
 	if (isset($_POST['username'])) {
 		$get_user = $_POST ['username'];
 		$password = $_POST ['contrasena'];
+		$username = $_POST ['username'];
+		$abrir = fopen ($username.'.txt','r'); // abre el .txt
+		$obtener = fgets ($abrir); //lee todo el archivo .txt
+		$final = unserialize($obtener); // te lo convierte en un array
 
-		if ($get_user === $username && $password === $final[2]) {
+		print_r($final);
+
+		if ($password == $final['contrasena']) {
 		
-			$_SESSION = $username; //Es un array asociativo que contiene variables de sesión disponibles para el script actual.
+			$_SESSION['username'] = $username; //Es un array asociativo que contiene variables de sesión disponibles para el script actual.
 			header("Location: index.php");
+			
 		}else{
 			$status = "Please Login!";
+			echo $status;
 					}
 	}
 
-	if( isset($status) ) : ?>
-	<p><?php echo $status; ?></p>
-	<p><?php echo $username; ?></p>
-	<p><?php echo $password; ?></p>
-<?php endif; ?>
+	?>
+	
 
+	
 </form>
 
 

@@ -14,7 +14,7 @@ if ( !isset($_SESSION['username']) ) {
 </head>
 <body>
 
-<h1>Hola <?php echo $_SESSION['username'] ?></h1>
+<h1>Hola <?php echo $_SESSION ['username'] ?></h1>
 <p><a href="logout.php">Logout!</a></p>
 
 </body>

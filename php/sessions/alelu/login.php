@@ -1,49 +1,12 @@
 <?php 
-
 session_start();
-
-define('USERNAME', 'Li');
-define('PASSWORD', '123123');
-
-
-
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
 </head>
 <body>
-
-<form action="login.php" method="post">
-	<label for="username">Username</label>
-	<input name="username" value="" type="text"/>
-	<label for="password">Password</label>
-	<input name="password" value="" type="password"/>
-	<input type="submit" value="Submit!"/>
-
-
-
-	<?php 
-	if (isset($_POST['username'])) {
-		$username = $_POST ['username'];
-		$password = $_POST ['password'];
-
-		if ($username === USERNAME && $password === PASSWORD) {
-		
-			$_SESSION['username'] = $username;
-			header("Location: index.php");
-		}else{
-			$status = "Please Login!";
-		}
-	}
-
-	if( isset($status) ) : ?>
-	<p><?php echo $status; ?></p>
-<?php endif; ?>
-
-</form>
 
 <form action ="login.php" method="post">
 	<label for="nombre">Nombre</label> 
@@ -53,23 +16,68 @@ define('PASSWORD', '123123');
 	<label for="contrasena">Contrasena</label>
 	<input type="password" name="contrasena" id="contrasena"> <br>	
 	<label for="repit-contrasena">Repetir Contrasena</label>
-	<input type="password" name="repit-contrasena	" id="repit-contrasena">	<br>	
+	<input type="password" name="repit-contrasena" id="repit-contrasena"><br>	
 	<input type="submit" value="OK">	
+</form>
 
-	<?php
-	//$_POST=['nombre'=>'Lucia','apellido'=>'Caffa','password'=>'123'];
-	extract($_POST);
-	$n=strtolower($nombre);
-	$n=trim($n);
-	$n=$n[0];
-	$a=strtolower($apellido);
+
+<?php 
+	//el array se crea automatico con el post
+	extract($_POST); // tranformamos las key en variables
+	$n=strtolower($nombre); //convertimos en minusculas los caracteres
+	$n=trim($n); // sacamos los espacios
+	$n=$n[0];  // toma el primer caracter
+	$a=strtolower($apellido); // convierte en minuscula el apellido
 	
-	file_put_contents($n.'.'.$a.'.txt',$_POST);
+	$serialize =serialize ($_POST); // Genera una representación apta para el almacenamiento de un valor, Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
 
-	//int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )
-	?>
+	file_put_contents($n.'.'.$a.'.txt',$serialize); //crea el archivo .txt que lo va a guardar en la carpeta donde tenemos nuestros archivos
+	$username = $n.'.'.$a; // le decimos que su userename se llama igual que el archivo .txt ej (l.caffa)
+	echo $username;
+	/*foreach ($_POST as $key => $val) {  // para que te guarde un .txt con salto de linas (pero no funciona)
+		$file= $username.'.txt'; // creamos el .txt
+		$handle= fopen ($file,'a'); // te abre el archovo
+		$data=$key.'=>'.$val.'/n'; // te separa los datos  y te los escribe lindo
+		fwrite($handle, $data); // esribio el handle y la data
+		fclose($handle); // cierra el archivo
+	}*/
+	$abrir = fopen ($username.'.txt','r'); // abre el .txt
+	$obtener = fgets ($abrir); //lee todo el archivo .txt
+	$final = unserialize($obtener); // te lo convierte en un array
+	//print_r($final); 
+?>
+
+<form action="login.php" method="post">
+	<label for="username">Username</label>
+	<input name="username" value="" type="text"/>
+	<label for="contrasena">Password</label>
+	<input name="contrasena" value="" type="password"/>
+	<input type="submit" value="Submit!"/>
+
+
+
+	<?php 
+	if (isset($_POST['username'])) {
+		$get_user = $_POST ['username'];
+		$password = $_POST ['contrasena'];
+
+		if ($get_user === $username && $password === $final[2]) {
+		
+			$_SESSION = $username; //Es un array asociativo que contiene variables de sesión disponibles para el script actual.
+			header("Location: index.php");
+		}else{
+			$status = "Please Login!";
+					}
+	}
+
+	if( isset($status) ) : ?>
+	<p><?php echo $status; ?></p>
+	<p><?php echo $username; ?></p>
+	<p><?php echo $password; ?></p>
+<?php endif; ?>
 
 </form>
+
 
 
 </body>

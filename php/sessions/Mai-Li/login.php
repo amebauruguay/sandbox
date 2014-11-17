@@ -2,12 +2,6 @@
 
 session_start();
 
-//define('USERNAME', 'Li');
-//define('PASSWORD', '123123');
-
-
-
-
 //para Registrarse: chequea que se haya cliqueado el botón de sign in
 if (isset ($_POST ['signin'])) {
 
@@ -48,7 +42,11 @@ if (isset ($_POST ['login'])) {
 	//si el password ingresado coincide con el password del archivo
 	if ($_POST ['password'] == $arrayDatos['password']) {
 		//pasarle la variable a la session y redirecciona al index.php
-		$_SESSION['username'] = $username;
+		$_SESSION['username'] = $_POST ['username'];
+		$_SESSION['name'] = $arrayDatos['name'];
+		$_SESSION['apellido'] = $arrayDatos['apellido'];
+		$_SESSION['mail'] = $arrayDatos['mail'];
+		$_SESSION['password'] = $arrayDatos['password'];
 		header("Location: index.php");
 	}else{
 		//define la variable para pasar el mensaje de 'error'

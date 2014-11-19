@@ -5,12 +5,6 @@ if ( !isset($_SESSION['username']) ) {
 	header('Location: login.php');
 }
 
-//define los datos que aparecen en el formulario
-$newName = $_SESSION['name'];
-$newApellido = $_SESSION['apellido'];
-$newMail = $_SESSION['mail'];
-$newPassword = $_SESSION['password'];
-$newPassword2 = $_SESSION['password'];
 
 //para guardar los nuevos datos: chequea que se haya cliqueado el botón de guardar
 if (isset ($_POST ['guardar'])) {
@@ -23,16 +17,20 @@ if (isset ($_POST ['guardar'])) {
 	if ($password==$password2){
 		if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
 			//toma la inicial del nombre ingresado
-			$username = strtolower(substr( $name, 0, 1). $apellido); 
+			$username = $_SESSION['username']; 
 			//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
-			file_put_contents('users/'. $_SESSION['username'] .'.txt', $datosForm);
+			file_put_contents('users/'. $username .'.txt', $datosForm);
 
 			$statusSingIn = 'se guardaron los cambios correctamente';
-			$newName = $_POST['name'];
-			$newApellido = $_POST['apellido'];
-			$newMail = $_POST['mail'];
-			$newPassword = $_POST['password'];
-			$newPassword2 = $_POST['password2'];	
+			//destruye las sesiones
+			session_destroy();	
+			//redifine el valor de las sessions
+			$_SESSION['name'] = $_POST['name'];
+			$_SESSION['apellido'] = $_POST['apellido'];
+			$_SESSION['username'] = $username;
+			$_SESSION['mail'] = $_POST['mail'];
+			$_SESSION['password'] = $_POST['password'];
+			$_SESSION['password'] = $_POST['password2'];
 		}else{
 			$statusSingIn = 'mail no valido';
 		}
@@ -40,6 +38,14 @@ if (isset ($_POST ['guardar'])) {
 		$statusSingIn = 'Contraseñas no coinciden';
 	}
 }
+//define los datos que aparecen en el formulario o en el txt si se redefinieron anteriormente
+$newName = $_SESSION['name'];
+$newApellido = $_SESSION['apellido'];
+$newMail = $_SESSION['mail'];
+$newPassword = $_SESSION['password'];
+$newPassword2 = $_SESSION['password'];
+
+
 ?>
 
 <!DOCTYPE html>

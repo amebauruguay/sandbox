@@ -1,1 +1,1 @@
-a:6:{s:4:"name";s:5:"Ligia";s:8:"apellido";s:6:"Morono";s:4:"mail";s:20:"limazzilli@gmail.com";s:8:"password";s:3:"123";s:9:"password2";s:3:"123";s:7:"guardar";s:7:"Guardar";}
+a:6:{s:4:"name";s:2:"Li";s:8:"apellido";s:6:"Morono";s:4:"mail";s:20:"limazzilli@gmail.com";s:8:"password";s:3:"123";s:9:"password2";s:3:"123";s:7:"guardar";s:7:"Guardar";}

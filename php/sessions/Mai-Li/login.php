@@ -10,18 +10,25 @@ if (isset ($_POST ['signin'])) {
 	//escribe los datos del post en un formato usable para convertir luego en un array
 	$datosForm = serialize($_POST);
 	//validar
-	if ($password==$password2){
-		if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
-			//toma la inicial del nombre ingresado
-			$username = strtolower(substr( $name, 0, 1). $apellido); 
-			//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
-			file_put_contents('users/'. $username .'.txt', $datosForm);
-			$statusSingIn = 'se registro correctamente';
-		}else{
-			$statusSingIn = 'mail no valido';
-		}
-	}else{ 
-		$statusSingIn = 'Contraseñas no coinciden';
+	
+	$statusSingIn ='';
+
+	if (file_exists('users/'.$_POST ['username'].'.txt')) {
+	 	//valida si el nombre de usuario existe ya
+	  	$statusSingIn .= 'el nombre de usuario ya existe';
+	}
+	if ($password!=$password2){
+		$statusSingIn .= '<br/> Contraseñas no coinciden';
+	}
+	if (!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+		//toma la inicial del nombre ingresado
+		//$username = strtolower(substr( $name, 0, 1). $apellido); 
+		$statusSingIn .= '<br/> Mail no valido';
+	}
+	if ($statusSingIn=='') {
+		//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
+		file_put_contents('users/'. $username .'.txt', $datosForm);
+		$statusSingIn .= 'Se registro correctamente';
 	}
 }
 
@@ -103,6 +110,8 @@ if (isset ($_POST ['login'])) {
 		<input name="apellido" value="" type="text"/>
 		<label for="mail">e-mail</label>
 		<input name="mail" value="" type="text"/>
+		<label for="username">Nombre de usuario</label>
+		<input name="username" value="" type="text"/>
 		<label for="password">Password</label>
 		<input name="password" value="" type="password"/>
 		<label for="password2">Repita el Password</label>
@@ -118,4 +127,12 @@ if (isset ($_POST ['login'])) {
 </div>
 
 </body>
+
+<!-- crear un campo usuario: 
+preguntar si el usuario existe y si existe, que use otro usuario 
+mandar por mail el usuario y contraseña
+que fucnionen los tildes y mayusculas 
+que pasa si los usuarios escriben dos apellidos/apellidos compuestos
+fun. para corregir tildes y carateres raros-->
+
 </html>

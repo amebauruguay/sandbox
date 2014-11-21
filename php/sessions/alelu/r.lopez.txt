@@ -1,1 +1,0 @@
-a:4:{s:6:"nombre";s:7:"Roberto";s:8:"apellido";s:5:"Lopez";s:10:"contrasena";s:3:"123";s:16:"repit-contrasena";s:3:"123";}

@@ -1,0 +1,1 @@
+a:6:{s:6:"nombre";s:6:"asdasd";s:8:"apellido";s:5:"adasd";s:8:"username";s:3:"asd";s:5:"email";s:0:"";s:10:"contrasena";s:3:"asd";s:16:"repit_contrasena";s:3:"asd";}

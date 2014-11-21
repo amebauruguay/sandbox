@@ -12,30 +12,37 @@ session_start();
 	<label for="nombre">Nombre</label> 
 	<input type="text" name="nombre" id="nombre"> <br>	
 	<label for="apellido">Apellido</label> 
-	<input type="text" name="apellido" id="apellido"> <br>	
+	<input type="text" name="apellido" id="apellido"> <br>
+	<label for="username">Username</label>
+	<input type="text" name="username" id="username"> <br>
+	<label for="email">Email</label>
+	<input type="text" name="email" id="email">	<br>
 	<label for="contrasena">Contrasena</label>
 	<input type="password" name="contrasena" id="contrasena"> <br>	
-	<label for="repit-contrasena">Repetir Contrasena</label>
-	<input type="password" name="repit-contrasena" id="repit-contrasena"><br>	
+	<label for="repit_contrasena">Repetir Contrasena</label>
+	<input type="password" name="repit_contrasena" id="repit_contrasena"><br>	
 	<input type="submit" value="OK">	
 </form>
 
 
 <?php 
-
-if (isset($_POST['nombre'])) {
+/**************************Para crear un usuario automatica a partir del nombre y apellido ej l.caffa.txt*****************/
+//if (isset($_POST['nombre'])) {
 	//el array se crea automatico con el post
-	extract($_POST); // tranformamos las key en variables
-	$n=strtolower($nombre); //convertimos en minusculas los caracteres
-	$n=trim($n); // sacamos los espacios
-	$n=$n[0];  // toma el primer caracter
-	$a=strtolower($apellido); // convierte en minuscula el apellido
+	//extract($_POST); // tranformamos las key en variables
+	//$n=strtolower($nombre); //convertimos en minusculas los caracteres
+	//$n=trim($n); // sacamos los espacios
+	//$n=$n[0];  // toma el primer caracter
+	//$a=strtolower($apellido); // convierte en minuscula el apellido
 	
-	$serialize =serialize ($_POST); // Genera una representación apta para el almacenamiento de un valor, Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
+	//$serialize =serialize ($_POST); // Genera una representación apta para el almacenamiento de un valor, Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
 
-	file_put_contents($n.'.'.$a.'.txt',$serialize); //crea el archivo .txt que lo va a guardar en la carpeta donde tenemos nuestros archivos
-	$username = $n.'.'.$a; // le decimos que su userename se llama igual que el archivo .txt ej (l.caffa)
-	echo $username;
+	//file_put_contents( $n.'.'.$a .'.txt',$serialize); //crea el archivo .txt que lo va a guardar en la carpeta donde tenemos nuestros archivos
+	//$username = $n.'.'.$a; // le decimos que su userename se llama igual que el archivo .txt ej (l.caffa)
+	//echo $username;
+	//print_r($final); 
+
+	/*************Prueba fallida *************************/
 	/*foreach ($_POST as $key => $val) {  // para que te guarde un .txt con salto de linas (pero no funciona)
 		$file= $username.'.txt'; // creamos el .txt
 		$handle= fopen ($file,'a'); // te abre el archovo
@@ -43,13 +50,31 @@ if (isset($_POST['nombre'])) {
 		fwrite($handle, $data); // esribio el handle y la data
 		fclose($handle); // cierra el archivo
 	}*/
-	//print_r($final); 
-	//
-	//
-	}
+	//}
 	
-?>
+	
+	/*********************Que el usuario ingrese su propio username*******************/
+	if (isset($_POST['nombre'])) {
+	extract($_POST); // tranformamos las key en variables
+	$serialize =serialize ($_POST); // Genera una representación apta para el almacenamiento de un valor, Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
+	
+	 	if ($nombre ==='') {
+	 		echo 'Ingrese su nombre, bobo';
+	 	}else if($apellido === ''){
+	 		echo 'Ingrese su apellido'; 	 		
+	 	}else if($username === $username.'.txt'){
+	 		echo 'Mongo ese usuario ya existe';
+	 	}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+	 		echo 'Su email no es correcto'; 	 		
+	 	}else if($contrasena != $repit_contrasena){
+	 		echo 'Su contrasena no es valida';
+	 	}else {
+	 	file_put_contents( $username .'.txt',$serialize); //crea el archivo .txt que lo va a guardar en la carpeta donde tenemos nuestros archivos
+		}
+	
+	}	
 
+?>
 <form action="login.php" method="post">
 	<label for="username">Username</label>
 	<input name="username" value="" type="text"/>
@@ -59,15 +84,15 @@ if (isset($_POST['nombre'])) {
 
 	<?php 
 	
-	if (isset($_POST['username'])) {
-		$get_user = $_POST ['username'];
+	if (isset($_POST['username']) && !isset ($_POST['nombre'])) { //si existe username y no el nombre que haga lo siguiente.
+		//$get_user = $_POST ['username'];
 		$password = $_POST ['contrasena'];
 		$username = $_POST ['username'];
 		$abrir = fopen ($username.'.txt','r'); // abre el .txt
 		$obtener = fgets ($abrir); //lee todo el archivo .txt
 		$final = unserialize($obtener); // te lo convierte en un array
 
-		print_r($final);
+		//print_r($final); para que nos imprima el array de $final.
 
 		if ($password == $final['contrasena']) {
 		
@@ -81,12 +106,8 @@ if (isset($_POST['nombre'])) {
 	}
 
 	?>
-	
 
-	
 </form>
-
-
 
 </body>
 </html>

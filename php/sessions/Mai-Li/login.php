@@ -1,8 +1,17 @@
 <?php 
 
 session_start();
-
+include 'functions.php';
 //para Registrarse: chequea que se haya cliqueado el botón de sign in
+if (isset ($_POST ['signin'])) {
+	if (comprobar_datos_ingresados()) {
+        $statusSingIn = 'bien';
+    }
+}
+
+
+/*
+//chequeo de datos del registro sin funcion
 if (isset ($_POST ['signin'])) {
 
 	//Convierte los datos del array post en variables independientes y usables
@@ -17,6 +26,9 @@ if (isset ($_POST ['signin'])) {
 	 	//valida si el nombre de usuario existe ya
 	  	$statusSingIn .= 'el nombre de usuario ya existe';
 	}
+	if (comprobar_nombre_usuario($username)== false) {
+		$statusSingIn .= 'usuario no válido';
+	}
 	if ($password!=$password2){
 		$statusSingIn .= '<br/> Contraseñas no coinciden';
 	}
@@ -28,13 +40,19 @@ if (isset ($_POST ['signin'])) {
 	if ($statusSingIn=='') {
 		//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
 		file_put_contents('users/'. $username .'.txt', $datosForm);
-		$statusSingIn .= 'Se registro correctamente';
+		$statusSingIn = 'Se registro correctamente,';
+		//enviar nombre de usuario y contraseña por al mail.
+		if (mail($mail, "Usuario y contraseña", $datosForm)) {
+	    	$statusSingIn .= '<br/>y su usuario y contraseña se han enviado a su mail';
+	  	}else{
+	  		$statusSingIn .= '<br/>pero ha habido un error al enviar el mail';
+	  	}
 	}
-}
+}*/
 
-//busca el archivo en la carpeta users con el nombre que se haya ingresado
 
-//abre el archivo y chequea si la contrasena coincide con la ingresada
+
+
 
 
 // PARA LOGEARSE: si el campo login existe. para identificar cual formulario esta mandando
@@ -112,6 +130,7 @@ if (isset ($_POST ['login'])) {
 		<input name="mail" value="" type="text"/>
 		<label for="username">Nombre de usuario</label>
 		<input name="username" value="" type="text"/>
+		<p>*ingrse un usuario sin espacios y caracteres especiales</p>
 		<label for="password">Password</label>
 		<input name="password" value="" type="password"/>
 		<label for="password2">Repita el Password</label>
@@ -129,10 +148,8 @@ if (isset ($_POST ['login'])) {
 </body>
 
 <!-- crear un campo usuario: 
-preguntar si el usuario existe y si existe, que use otro usuario 
 mandar por mail el usuario y contraseña
 que fucnionen los tildes y mayusculas 
-que pasa si los usuarios escriben dos apellidos/apellidos compuestos
 fun. para corregir tildes y carateres raros-->
 
 </html>

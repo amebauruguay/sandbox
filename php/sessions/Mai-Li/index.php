@@ -22,8 +22,7 @@ if (isset ($_POST ['guardar'])) {
 			file_put_contents('users/'. $username .'.txt', $datosForm);
 
 			$statusSingIn = 'se guardaron los cambios correctamente';
-			//destruye las sesiones
-			session_destroy();	
+	
 			//redifine el valor de las sessions
 			$_SESSION['name'] = $_POST['name'];
 			$_SESSION['apellido'] = $_POST['apellido'];
@@ -34,7 +33,7 @@ if (isset ($_POST ['guardar'])) {
 		}else{
 			$statusSingIn = 'mail no valido';
 		}
-	}else{ 
+	}else{
 		$statusSingIn = 'Contraseñas no coinciden';
 	}
 }
@@ -49,11 +48,13 @@ $newPassword2 = $_SESSION['password'];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title></title>
+	<meta charset="UTF-8">
+	<title>Document</title>
 </head>
 <body>
+
 
 <h1>Hola <?php echo $newName ?></h1>
 <p><a href="logout.php">Cerrar sesión!</a></p>

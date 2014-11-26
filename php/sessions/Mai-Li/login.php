@@ -2,13 +2,28 @@
 
 session_start();
 include 'functions.php';
+
 //para Registrarse: chequea que se haya cliqueado el botón de sign in
 if (isset ($_POST ['signin'])) {
-	if (comprobar_datos_ingresados()) {
-        $statusSingIn = 'bien';
+
+    //validar
+
+	$statusSingIn = comprobar_datos_ingresados();
+
+	if ($statusSingIn ==='') {
+        //$statusSingIn = 'bien';    
+        //Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
+    	file_put_contents('users/'. $username .'.txt', $datosForm);
+     	$statusSingIn = 'Se registro correctamente,';
+    
+        //enviar nombre de usuario y contraseña por al mail.
+        if (mail($mail, "Usuario y contraseña", $datosForm)) {
+            $statusSingIn .= '<br/>y su usuario y contraseña se han enviado a su mail';
+        }else{
+            $statusSingIn .= '<br/>pero ha habido un error al enviar el mail';
+        }
     }
 }
-
 
 /*
 //chequeo de datos del registro sin funcion

@@ -1,23 +1,28 @@
 <?php 
-//si es el nombre usuarion no existe que te mande al login
+
 session_start(); 
+include 'functions.php';
+
+//si es el nombre usuarion no existe que te mande al login
 if ( !isset($_SESSION['username']) ) {
 	header('Location: login.php');
 }
 
-
 //para guardar los nuevos datos: chequea que se haya cliqueado el botón de guardar
 if (isset ($_POST ['guardar'])) {
 
-	//Convierte los datos del array post en variables independientes y usables
-	extract($_POST);
-	//escribe los datos del post en un formato usable para convertir luego en un array
-	$datosForm = serialize($_POST);
 	//validar
-	if ($password==$password2){
-		if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
+
+	$statusSingIn = comprobar_datos_ingresados();
+
+	if ($statusSingIn ==='') {
+
+	//if ($password==$password2){
+	//	if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
+			
 			//toma la inicial del nombre ingresado
 			$username = $_SESSION['username']; 
+			
 			//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
 			file_put_contents('users/'. $username .'.txt', $datosForm);
 
@@ -30,13 +35,9 @@ if (isset ($_POST ['guardar'])) {
 			$_SESSION['mail'] = $_POST['mail'];
 			$_SESSION['password'] = $_POST['password'];
 			$_SESSION['password'] = $_POST['password2'];
-		}else{
-			$statusSingIn = 'mail no valido';
-		}
-	}else{
-		$statusSingIn = 'Contraseñas no coinciden';
 	}
 }
+
 //define los datos que aparecen en el formulario o en el txt si se redefinieron anteriormente
 $newName = $_SESSION['name'];
 $newApellido = $_SESSION['apellido'];
@@ -72,6 +73,7 @@ $newPassword2 = $_SESSION['password'];
 		<input name="password" value="<?php echo $newPassword ?>" type="password"/>
 		<label for="password2">Repita Nueva Contraseña</label>
 		<input name="password2" value="<?php echo $newPassword2 ?>" type="password"/>
+		<input name="username" value="<?php echo $_SESSION['username'] ?>" type="text" hidden/>
 		<input type="submit" value="Guardar" name="guardar"/>
 
 	<!-- si llega al else (los datos no coinciden) del if anterior imprime la variable status -->

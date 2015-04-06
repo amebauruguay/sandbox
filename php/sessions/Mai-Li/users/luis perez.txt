@@ -1,1 +1,0 @@
-a:7:{s:4:"name";s:4:"Luis";s:8:"apellido";s:5:"Perez";s:4:"mail";s:15:"lperez@algo.com";s:8:"username";s:10:"luis perez";s:8:"password";s:3:"123";s:9:"password2";s:3:"123";s:6:"signin";s:11:"Registrarse";}

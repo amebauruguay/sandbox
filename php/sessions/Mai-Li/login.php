@@ -12,12 +12,15 @@ if (isset ($_POST ['signin'])) {
 
 	if ($statusSingIn ==='') {
         //$statusSingIn = 'bien';    
+
+        //escribe los datos del post en un formato usable para convertir luego en un array
+        $datosForm = serialize($_POST);
         //Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
-    	file_put_contents('users/'. $username .'.txt', $datosForm);
+    	file_put_contents('users/'.$_POST ['username'] .'.txt', $datosForm);
      	$statusSingIn = 'Se registro correctamente,';
     
         //enviar nombre de usuario y contraseña por al mail.
-        if (mail($mail, "Usuario y contraseña", $datosForm)) {
+     if (mail($mail, "Usuario y contraseña", $datosForm)) {
             $statusSingIn .= '<br/>y su usuario y contraseña se han enviado a su mail';
         }else{
             $statusSingIn .= '<br/>pero ha habido un error al enviar el mail';
@@ -65,34 +68,40 @@ if (isset ($_POST ['signin'])) {
 	}
 }*/
 
-
-
-
-
-
+$sistema = '';
 // PARA LOGEARSE: si el campo login existe. para identificar cual formulario esta mandando
 if (isset ($_POST ['login'])) {
-	//buscar el archivo y lo abre
-	$archivoAbrierto = fopen('users/'.$_POST ['username'].'.txt', 'r');
-	//lee la linea de datos del archivo
-	$linea = fgets($archivoAbrierto);
-	//convierte los datos del archivo en un array
-	$arrayDatos = unserialize($linea);
+	$sistema = 'login';
 	
-	//si el password ingresado coincide con el password del archivo
-	if ($_POST ['password'] == $arrayDatos['password']) {
-		//pasarle la variable a la session y redirecciona al index.php
-		$_SESSION['username'] = $_POST ['username'];
-		$_SESSION['name'] = $arrayDatos['name'];
-		$_SESSION['apellido'] = $arrayDatos['apellido'];
-		$_SESSION['mail'] = $arrayDatos['mail'];
-		$_SESSION['password'] = $arrayDatos['password'];
-		header("Location: index.php");
-	}else{
-		//define la variable para pasar el mensaje de 'error'
-		$status = "Datos incorrectos!!!!";
-	}
+	//buscar el archivo
+	$nombre_archivo = 'users/'.$_POST ['username'].'.txt';
 
+	if (file_exists($nombre_archivo)) {
+		// si existe lo abre
+		$archivoAbrierto = fopen('users/'.$_POST ['username'].'.txt', 'r');
+		//lee la linea de datos del archivo
+		$linea = fgets($archivoAbrierto);
+		//convierte los datos del archivo en un array
+		$arrayDatos = unserialize($linea);
+		
+		//si el password ingresado coincide con el password del archivo
+		if ($_POST ['password'] == $arrayDatos['password']) {
+			//pasarle la variable a la session y redirecciona al index.php
+			$_SESSION['username'] = $_POST ['username'];
+			$_SESSION['name'] = $arrayDatos['name'];
+			$_SESSION['apellido'] = $arrayDatos['apellido'];
+			$_SESSION['mail'] = $arrayDatos['mail'];
+			$_SESSION['password'] = $arrayDatos['password'];
+			header("Location: index.php");
+		}else{
+			//define la variable para pasar el mensaje de 'error'
+			$status = "Datos incorrectos!!!!";
+		}
+
+	} else {
+		//si no existe 
+	    $status = "El usuario no existe!!!!";
+	}
 	//si las variables coinsiden con los datos definidos en la db
 	//if ($username === USERNAME && $password === PASSWORD) {
 		//pasarle la variable a la session y redirecciona al index.php

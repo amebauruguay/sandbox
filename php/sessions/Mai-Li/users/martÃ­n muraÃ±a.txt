@@ -1,1 +1,0 @@
-a:7:{s:4:"name";s:7:"Martín";s:8:"apellido";s:7:"Muraña";s:4:"mail";s:18:"maicaffa@gmail.com";s:8:"username";s:15:"martín muraña";s:8:"password";s:3:"123";s:9:"password2";s:3:"123";s:6:"signin";s:11:"Registrarse";}

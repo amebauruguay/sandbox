@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Search</title>
+	<link rel="stylesheet" href="">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+</head>
+<body>
+
+<input type="text" class="search" val='' />
+
+<ul class="itemsToSearch">
+  <li>Juan</li>
+  <li>Paco</li>
+  <li>Pedro</li>
+  <li>De la Mar</li>
+</ul>
+
+<script type="text/javascript">
+
+	jQuery('.search').keyup(filtrar);
+
+	function filtrar() {
+		jQuery('.itemsToSearch li').each(hideOrShow);
+	}
+
+	function hideOrShow(){
+		var searchFor = jQuery('.search').val().toUpperCase();		
+		var searchIn = jQuery(this).text().toUpperCase();
+		if(searchIn.indexOf(searchFor) >= 0) {jQuery(this).show();} 
+		else {jQuery(this).hide();}
+	}
+
+
+</script>
+	
+</body>
+</html>

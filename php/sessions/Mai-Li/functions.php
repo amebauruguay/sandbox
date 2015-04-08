@@ -7,12 +7,15 @@ function comprobar_datos_ingresados(){
     
    //escribe los datos del post en un formato usable para convertir luego en un array
    $datosForm = serialize($_POST);
-
+   $sistema = '';
    $statusSingIn ='';
-//hay que preguntar si se esta dentro del sistema o no, que es la diferencia entre los dos formularios, si se esta dentro del sistema que no te valide y si no que si
-   if (file_exists('users/'.$username.'.txt')) {
-      //valida si el nombre de usuario existe ya
-      $statusSingIn .= 'el nombre de usuario ya existe';
+//hay que preguntar si se esta dentro del sistema o no, que es la diferencia entre los dos formularios, si se esta dentro del sistema que no te valide y si no que si  
+   if (empty($_SESSION['username'])) {
+   //if ($sistema !== 'login') {
+      if (file_exists('users/'.$username.'.txt')) {
+         //valida si el nombre de usuario existe ya
+         $statusSingIn .= 'el nombre de usuario ya existe';
+      }
    }
    if (comprobar_nombre_usuario($username)===false) {
       $statusSingIn .= 'usuario no válido';
@@ -25,7 +28,6 @@ function comprobar_datos_ingresados(){
       //$username = strtolower(substr( $name, 0, 1). $apellido); 
       $statusSingIn .= '<br/> Mail no valido';
    }
-
    return $statusSingIn;
 }
 

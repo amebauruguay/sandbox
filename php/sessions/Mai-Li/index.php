@@ -12,7 +12,6 @@ if ( !isset($_SESSION['username']) ) {
 if (isset ($_POST ['guardar'])) {
 
 	//validar
-
 	$statusSingIn = comprobar_datos_ingresados();
 
 	if ($statusSingIn ==='') {
@@ -20,9 +19,12 @@ if (isset ($_POST ['guardar'])) {
 	//if ($password==$password2){
 	//	if (filter_var($mail, FILTER_VALIDATE_EMAIL)){
 			
-			//toma la inicial del nombre ingresado
+			//toma el nombre de usuario como el username de la sesión
 			$username = $_SESSION['username']; 
 			
+			//escribe los datos del post en un formato usable para convertir luego en un array
+        	$datosForm = serialize($_POST);
+
 			//Escribe una cadena a un archivo - filename es el nombre del archivo y la ruta, data es la informacion que se le pasa
 			file_put_contents('users/'. $username .'.txt', $datosForm);
 

@@ -18,7 +18,7 @@ if (!class_exists('sandbox_add_basic_user')) {
             flush_rewrite_rules();
         }   
 
-        function deactivate(){
+        public static function deactivate(){
         	remove_role( 'basic_admin2' );
             self::$initiated = false;
             flush_rewrite_rules();

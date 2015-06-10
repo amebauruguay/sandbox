@@ -1,0 +1,7 @@
+.widget_nuestro_primer_widget {
+	margin-bottom: 30px;
+	display: table; 
+}
+.widget_nuestro_primer_widget img, .widget_nuestro_primer_widget h2 {
+	display: table-cell;
+}

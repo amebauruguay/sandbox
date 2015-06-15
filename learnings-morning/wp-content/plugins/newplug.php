@@ -72,7 +72,8 @@ class mv_new_one extends WP_Widget{
 
 		  	$args = array(
 		  		'post_status' => 'inherit', 
-		  		'post_type' => 'attachment', 
+          'post_type' => 'attachment', 
+          'category_name' => 'icono', 
 		  		'post_mime_type' => 'image', 
 		  		'order' => 'ASC', 
 		  		'orderby' => 'menu_order ID'

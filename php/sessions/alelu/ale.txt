@@ -1,0 +1,1 @@
+a:6:{s:6:"nombre";s:9:"Alejandra";s:8:"apellido";s:7:"Laxalde";s:8:"username";s:3:"ale";s:5:"email";s:21:"alelax_88@hotmail.com";s:10:"contrasena";s:3:"123";s:16:"repit_contrasena";s:3:"123";}

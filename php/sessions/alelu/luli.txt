@@ -1,0 +1,1 @@
+a:6:{s:6:"nombre";s:5:"Lucia";s:8:"apellido";s:5:"Caffa";s:8:"username";s:4:"luli";s:5:"email";s:15:"luca@hasddf.com";s:10:"contrasena";s:3:"123";s:16:"repit_contrasena";s:3:"123";}

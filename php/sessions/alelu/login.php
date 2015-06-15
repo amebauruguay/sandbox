@@ -1,5 +1,8 @@
 <?php 
 session_start();
+
+include 'funcion.php';  //llamanos la funcion que esta en otro archivo.
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +29,14 @@ session_start();
 
 
 <?php 
+
+extract($_POST);
+validacion();
+
+
+
+
+
 /**************************Para crear un usuario automatica a partir del nombre y apellido ej l.caffa.txt*****************/
 //if (isset($_POST['nombre'])) {
 	//el array se crea automatico con el post
@@ -54,7 +65,7 @@ session_start();
 	
 	
 	/*********************Que el usuario ingrese su propio username*******************/
-	if (isset($_POST['nombre'])) {
+	/*if (isset($_POST['nombre'])) {
 	extract($_POST); // tranformamos las key en variables
 	$serialize =serialize ($_POST); // Genera una representación apta para el almacenamiento de un valor, Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
 	
@@ -62,9 +73,11 @@ session_start();
 	 		echo 'Ingrese su nombre, bobo';
 	 	}else if($apellido === ''){
 	 		echo 'Ingrese su apellido'; 	 		
-	 	}else if($username === $username.'.txt'){
+	 	}else if ( $username ===''){
+	 		echo 'ingrese un nombre de usuario';
+	 	}else if(file_exists($_POST ['username'].'.txt')){  // comprueba si el usuario ya existe  
 	 		echo 'Mongo ese usuario ya existe';
-	 	}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+	 	}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){ //valida el email
 	 		echo 'Su email no es correcto'; 	 		
 	 	}else if($contrasena != $repit_contrasena){
 	 		echo 'Su contrasena no es valida';
@@ -72,6 +85,12 @@ session_start();
 	 	file_put_contents( $username .'.txt',$serialize); //crea el archivo .txt que lo va a guardar en la carpeta donde tenemos nuestros archivos
 		}
 	
+	}*/
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {   //simplemente le decimos que si tiene datos entonces los envie al email siguiente
+	if ( mail('alaxalde@ameba.com.uy', 'Email del Formulario', 'Bienvenido'. $nombre.', su username es'.$username.', y su contrasena es'.$contrasena) ) {
+		$status = "Bienvendio!!";
+	}else{$status = "Ingrese sus datos";}
 	}	
 
 ?>

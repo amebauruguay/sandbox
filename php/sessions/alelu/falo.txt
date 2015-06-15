@@ -1,1 +1,0 @@
-a:6:{s:6:"nombre";s:4:"Fabi";s:8:"apellido";s:4:"Loca";s:8:"username";s:4:"falo";s:5:"email";s:13:"falo@algo.com";s:10:"contrasena";s:3:"123";s:16:"repit_contrasena";s:3:"123";}

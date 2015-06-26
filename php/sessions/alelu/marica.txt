@@ -1,1 +1,0 @@
-a:6:{s:6:"nombre";s:7:"Mariana";s:8:"apellido";s:5:"Caffa";s:8:"username";s:6:"marica";s:5:"email";s:17:"mari@jksjdfk.sadf";s:10:"contrasena";s:3:"123";s:16:"repit_contrasena";s:3:"123";}
